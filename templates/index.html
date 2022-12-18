@@ -1,0 +1,28 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{super()}}
+    <link rel="stylesheet"
+          href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block title %}Library{% endblock %}
+
+{% block content %}
+<h1>My Library</h1>
+    {% if books == []: %}
+        <p>Library is empty.</p>
+    {% else: %}
+    <ul>
+        {% for i in books: %}
+        <li>
+            <a href="{{ url_for('delete', id=i['id']) }}">Delete</a>
+            {{ i['title'] }} - {{ i['author'] }} - {{ i['rating'] }}/10
+            <a href="{{ url_for('edit', id=i['id']) }}">Edit Rating</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+<a href="{{ url_for('add') }}">Add New Book</a>
+{% endblock %}
